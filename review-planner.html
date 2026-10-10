@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LIFE LINE | برنامه‌ریز جلسات و مرورهای منحنی فراموشی</title>
+<link rel="icon" type="image/webp" href="https://i.postimg.cc/kg3HykvF/LL.webp">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== توکن‌های رنگی (روشن/تیره) ===== */
+:root{--bg:#f5f6fb;--card:#fff;--tx:#161a2e;--mut:#646b86;--bd:#dfe2ef;--a:#4f46e5;--a2:#0ea5a4;--soft:#eef0fd;--today:#fff7d6}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1120;--card:#181b30;--tx:#eceefa;--mut:#a3a9c8;--bd:#2d3150;--a:#8b85ff;--a2:#2dd4cf;--soft:#232748;--today:#3a3410}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Vazirmatn,Tahoma,sans-serif;line-height:1.7}
+header{background:linear-gradient(120deg,var(--a),var(--a2));color:#fff;padding:22px 16px 60px;text-align:center}
+.brand{display:inline-flex;align-items:center;gap:12px;margin-bottom:10px;background:#ffffff26;padding:6px 18px 6px 8px;border-radius:99px}
+.brand img{width:52px;height:52px;object-fit:contain;border-radius:50%;background:#fff}
+.brand span{font:800 20px Vazirmatn,Tahoma,sans-serif;letter-spacing:2px}
+h1{margin:0;font-size:clamp(19px,4vw,28px);font-weight:800}
+header p{margin:4px 0 0;opacity:.9;font-size:14px}
+main{max-width:1180px;margin:-40px auto 40px;padding:0 14px;display:grid;gap:16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px}
+.form{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+label,.lbl{font-size:13px;font-weight:700;display:block;margin-bottom:5px}
+input,select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:500 14px Vazirmatn,Tahoma}
+.dt{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:6px}
+.days{display:flex;flex-wrap:wrap;gap:6px}
+.days label{margin:0;font-weight:500;border:1px solid var(--bd);border-radius:99px;padding:3px 12px;cursor:pointer;display:flex;gap:6px;align-items:center}
+.days input{width:auto}
+.days label:has(input:checked){background:var(--a);color:#fff;border-color:var(--a)}
+.btn{border:0;background:linear-gradient(120deg,var(--a),var(--a2));color:#fff;padding:12px 22px;border-radius:12px;font:700 15px Vazirmatn,Tahoma;cursor:pointer}
+.btn.sm{padding:6px 14px;font-size:13px;background:var(--soft);color:var(--tx)}
+:focus-visible{outline:3px solid var(--a2);outline-offset:2px}
+.err{color:#d6293e;font-size:13px;font-weight:700;margin-top:8px}
+.res{display:grid;gap:16px;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);align-items:start}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px}
+.nav h2{margin:0;font-size:18px}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.wd{text-align:center;font-size:12px;font-weight:700;color:var(--mut);padding:4px 0}
+.day{min-height:92px;border:1px solid var(--bd);border-radius:10px;padding:4px;cursor:pointer;display:flex;flex-direction:column;gap:2px;overflow:hidden;background:var(--bg)}
+.day.off{visibility:hidden}
+.day.today{background:var(--today)}
+.day.sel{outline:2px solid var(--a)}
+.day b{font-size:12px;color:var(--mut)}
+.pill{font-size:10.5px;line-height:1.35;border-radius:6px;padding:1px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill.s{color:#fff;font-weight:700}
+.pill.r{border:1.5px solid;color:var(--tx)}
+.more{font-size:10.5px;color:var(--mut)}
+.det{margin-top:12px;border-top:1px dashed var(--bd);padding-top:10px;font-size:14px}
+.det .pill{font-size:13px;margin:4px 0;white-space:normal;padding:4px 10px}
+.list{display:grid;gap:10px;max-height:760px;overflow:auto}
+.sc{border:1px solid var(--bd);border-right-width:6px;border-radius:12px;padding:10px 12px}
+.sc h3{margin:0 0 4px;font-size:15px}
+.sc ul{margin:6px 0 0;padding:0;list-style:none;display:grid;gap:3px;font-size:12.5px}
+.sc li span{display:inline-block;min-width:112px;color:var(--mut)}
+.empty{text-align:center;color:var(--mut);padding:30px 10px}
+footer{text-align:center;color:var(--mut);font-size:12px;padding-bottom:24px}
+@media(max-width:860px){.res{grid-template-columns:1fr}}
+@media(max-width:560px){.day{min-height:70px}.pill{font-size:9.5px;padding:0 3px}}
+/* ===== نمودار فراموشی ===== */
+:root{--red:#e5484d;--grn:#16a34a}
+@media(prefers-color-scheme:dark){:root{--red:#ff5f68;--grn:#21d69a}}
+.fc-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.fc-h h2{margin:0 0 4px;font-size:clamp(17px,3vw,22px)}
+.fc-h p{margin:0;color:var(--mut);font-size:13px}
+.leg{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.leg span{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:5px 12px;font-size:12.5px;color:var(--mut)}
+.leg i{width:10px;height:10px;border-radius:50%}
+.fcw{position:relative;border:1px solid var(--bd);border-radius:14px;background:var(--bg);padding:8px 4px 2px}
+#fc{width:100%;height:auto;display:block;touch-action:pan-y}
+#fc text{fill:var(--mut);font:11px Vazirmatn,Tahoma,sans-serif}
+#fc .g{stroke:var(--bd);stroke-width:1}
+#fc .ln{fill:none;stroke-width:2.8;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:dr 1.4s ease-out forwards}
+@keyframes dr{to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){#fc .ln{animation:none;stroke-dashoffset:0}}
+.tip{position:absolute;top:8px;pointer-events:none;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:7px 11px;font-size:12px;box-shadow:0 6px 18px #0003;display:none;white-space:nowrap}
+.fn{margin:10px 0 0;color:var(--mut);font-size:12px}
+</style>
+</head>
+<body>
+<header>
+<div class="brand"><img src="https://i.postimg.cc/kg3HykvF/LL.webp" alt="لوگوی LIFE LINE" width="52" height="52"><span dir="ltr">LIFE LINE</span></div>
+<h1>برنامه‌ریز جلسات و مرورهای منحنی فراموشی</h1>
+<p>تقویم شمسی؛ هر جلسه با مرورهایش یک رنگ دارد</p>
+</header>
+<main>
+<section class="card">
+<div class="fc-h"><div><h2>تأثیر مرور فاصله‌دار بر یادگیری</h2><p>مقایسه میزان یادآوری در ۳۰ روز، با و بدون مرور تکراری</p></div></div>
+<div class="leg"><span><i style="background:var(--red)"></i>بدون مرور؛ فراموشی طبیعی</span><span><i style="background:var(--grn)"></i>مرور فاصله‌دار؛ نقاط بزرگ = زمان مرور</span></div>
+<div class="fcw" id="fcw"><svg id="fc" viewBox="0 0 800 320" role="img" aria-label="نمودار مقایسه یادآوری با و بدون مرور فاصله‌دار در ۳۰ روز"></svg><div class="tip" id="tip"></div></div>
+<p class="fn">مرورها در روزهای ۱، ۳، ۷، ۱۶ و ۳۰ انجام شده‌اند. هرچه مرورها ادامه پیدا کنند، افت یادآوری کمتر می‌شود.</p>
+</section>
+<section class="card">
+<div class="form">
+<div><span class="lbl">تاریخ شروع (شمسی)</span>
+<div class="dt"><select id="y" aria-label="سال"></select><select id="m" aria-label="ماه"></select><select id="d" aria-label="روز"></select></div></div>
+<div><label for="n">تعداد کل جلسات</label><input id="n" type="number" min="1" max="60" value="10"></div>
+<div><label for="iv">فواصل مرور (روز، با کاما جدا کنید)</label><input id="iv" value="1, 3, 7, 15, 30" dir="ltr"></div>
+<div style="grid-column:1/-1"><span class="lbl">روزهای برگزاری در هفته</span><div class="days" id="wd"></div></div>
+</div>
+<div style="margin-top:14px"><button class="btn" id="go">محاسبه و ثبت برنامه</button><div class="err" id="err" role="alert"></div></div>
+</section>
+<section class="res" id="res" hidden>
+<div class="card">
+<div class="nav"><button class="btn sm" id="nx">ماه بعدی ›</button><h2 id="mt"></h2><button class="btn sm" id="pv">‹ ماه قبلی</button></div>
+<div class="cal" id="cal"></div>
+<div class="det" id="det">روی یک روز بزنید تا همه رویدادهایش را ببینید.</div>
+</div>
+<div class="card"><h2 style="margin:0 0 10px;font-size:17px">خلاصه برنامه</h2><div class="list" id="list"></div></div>
+</section>
+</main>
+<footer>جلسه اول در اولین روز انتخاب‌شده‌ی هفته که برابر یا بعد از تاریخ شروع باشد قرار می‌گیرد.</footer>
+<script>
+/* ===== تبدیل تاریخ شمسی ⇄ شماره روز ژولیانی (الگوریتم jalaali-js، بدون نیاز به CDN) ===== */
+const div=(a,b)=>~~(a/b),mod=(a,b)=>a-~~(a/b)*b;
+const BR=[-61,9,38,199,426,686,756,818,1111,1181,1210,1635,2060,2097,2192,2262,2324,2394,2456,3178];
+function jalCal(jy){let gy=jy+621,leapJ=-14,jp=BR[0],jm,jump,n,i;
+for(i=1;i<BR.length;i++){jm=BR[i];jump=jm-jp;if(jy<jm)break;leapJ+=div(jump,33)*8+div(mod(jump,33),4);jp=jm}
+n=jy-jp;leapJ+=div(n,33)*8+div(mod(n,33)+3,4);if(mod(jump,33)===4&&jump-n===4)leapJ++;
+const leapG=div(gy,4)-div((div(gy,100)+1)*3,4)-150,march=20+leapJ-leapG;
+if(jump-n<6)n=n-jump+div(jump+4,33)*33;let leap=mod(mod(n+1,33)-1,4);if(leap===-1)leap=4;return{leap,gy,march}}
+const g2d=(y,m,d)=>div((y+div(m-8,6)+100100)*1461,4)+div(153*mod(m+9,12)+2,5)+d-34840408-div(div(y+100100+div(m-8,6),100)*3,4)+752;
+function d2g(j){let x=4*j+139361631;x+=div(div(4*j+183187720,146097)*3,4)*4-3908;const i=div(mod(x,1461),4)*5+308;
+const gm=mod(div(i,153),12)+1;return{gy:div(x,1461)-100100+div(8-gm,6),gm,gd:div(mod(i,153),5)+1}}
+const j2d=(jy,jm,jd)=>{const r=jalCal(jy);return g2d(r.gy,3,r.march)+(jm-1)*31-div(jm,7)*(jm-7)+jd-1};
+function d2j(j){const g=d2g(j);let jy=g.gy-621,r=jalCal(jy),k=j-g2d(g.gy,3,r.march);
+if(k>=0){if(k<=185)return{jy,jm:1+div(k,31),jd:mod(k,31)+1};k-=186}else{jy--;k+=179;if(r.leap===1)k++}
+return{jy,jm:7+div(k,30),jd:mod(k,30)+1}}
+const mLen=(y,m)=>m<=6?31:m<=11?30:(jalCal(y).leap===0?30:29);
+
+/* ===== ثوابت ===== */
+const MN=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+const WN=['شنبه','یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنجشنبه','جمعه']; // اندیس ۰ = شنبه
+const wdOf=j=>(j+2)%7;
+/* پالت ۲۰ رنگ متمایز؛ هر جلسه یک رنگ (با تکرار چرخشی اگر جلسات بیشتر از ۲۰ باشد) */
+const PAL=['#2563eb','#16a34a','#9333ea','#ea580c','#dc2626','#db2777','#0891b2','#ca8a04','#4f46e5','#0d9488','#65a30d','#c026d3','#e11d48','#0284c7','#7c3aed','#b45309','#059669','#be123c','#475569','#d97706'];
+const fa=s=>String(s).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+const $=id=>document.getElementById(id);
+const fmt=j=>{const t=d2j(j);return`${WN[wdOf(j)]} ${fa(t.jd)} ${MN[t.jm-1]} ${fa(t.jy)}`};
+
+/* ===== ساخت فرم ===== */
+const now=new Date(),T=d2j(g2d(now.getFullYear(),now.getMonth()+1,now.getDate())),TODAY=j2d(T.jy,T.jm,T.jd);
+$('y').innerHTML=[...Array(8)].map((_,i)=>`<option value="${T.jy-1+i}">${fa(T.jy-1+i)}</option>`).join('');
+$('m').innerHTML=MN.map((n,i)=>`<option value="${i+1}">${n}</option>`).join('');
+$('y').value=T.jy;$('m').value=T.jm;
+function fillDays(){const c=+$('d').value||T.jd,L=mLen(+$('y').value,+$('m').value);
+$('d').innerHTML=[...Array(L)].map((_,i)=>`<option value="${i+1}">${fa(i+1)}</option>`).join('');$('d').value=Math.min(c,L)}
+fillDays();$('d').value=T.jd;$('y').onchange=$('m').onchange=fillDays;
+$('wd').innerHTML=WN.map((n,i)=>`<label><input type="checkbox" value="${i}" ${[0,2,4].includes(i)?'checked':''}>${n}</label>`).join('');
+
+/* ===== محاسبه برنامه ===== */
+let EV={},SS=[],view={y:T.jy,m:T.jm},selDay=null;
+$('go').onclick=()=>{
+const err=t=>$('err').textContent=t;err('');
+const days=[...document.querySelectorAll('#wd input:checked')].map(x=>+x.value);
+const n=parseInt($('n').value);
+// نرمال‌سازی ارقام فارسی و ویرگول فارسی در فواصل مرور
+const iv=$('iv').value.replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).split(/[,،\s]+/).filter(Boolean).map(Number);
+if(!days.length)return err('حداقل یک روز هفته را انتخاب کنید.');
+if(!(n>=1&&n<=60))return err('تعداد جلسات باید بین ۱ تا ۶۰ باشد.');
+if(!iv.length||iv.some(v=>!Number.isInteger(v)||v<1))return err('فواصل مرور باید اعداد صحیح مثبت و جدا شده با کاما باشند؛ مثلاً 1, 3, 7, 15, 30');
+const start=j2d(+$('y').value,+$('m').value,+$('d').value);
+EV={};SS=[];
+let j=start;
+for(let s=1;s<=n;){ // یافتن روزهای جلسه از تاریخ شروع
+ if(days.includes(wdOf(j))){
+  const color=PAL[(s-1)%PAL.length],revs=iv.map((g,k)=>({j:j+g,k:k+1,gap:g}));
+  SS.push({s,j,color,revs});
+  (EV[j]=EV[j]||[]).push({t:'s',s,color,txt:`جلسه ${fa(s)}`});
+  revs.forEach(r=>(EV[r.j]=EV[r.j]||[]).push({t:'r',s,color,txt:`جلسه ${fa(s)} - مرور ${fa(r.k)} (${fa(r.gap)} روز بعد)`}));
+  s++}
+ j++}
+const f=d2j(SS[0].j);view={y:f.jy,m:f.jm};selDay=null;
+$('res').hidden=false;draw();$('res').scrollIntoView({behavior:'smooth'})};
+
+/* ===== رسم تقویم ماهانه ===== */
+function draw(){
+const{y,m}=view,first=j2d(y,m,1),off=wdOf(first),L=mLen(y,m);
+$('mt').textContent=`${MN[m-1]} ${fa(y)}`;
+let h=['ش','ی','د','س','چ','پ','ج'].map((w,i)=>`<div class="wd" title="${WN[i]}">${w}</div>`).join('');
+for(let i=0;i<off;i++)h+='<div class="day off"></div>';
+for(let d=1;d<=L;d++){const j=first+d-1,es=EV[j]||[];
+ h+=`<div class="day${j===TODAY?' today':''}${j===selDay?' sel':''}" data-j="${j}" tabindex="0"><b>${fa(d)}</b>`+
+ es.slice(0,3).map(e=>pill(e,'')).join('')+(es.length>3?`<span class="more">+${fa(es.length-3)} مورد</span>`:'')+'</div>'}
+$('cal').innerHTML=h;
+$('list').innerHTML=SS.map(x=>`<div class="sc" style="border-right-color:${x.color}"><h3 style="color:${x.color}">جلسه ${fa(x.s)}</h3><div>${fmt(x.j)}</div><ul>`+
+ x.revs.map(r=>`<li><span>مرور ${fa(r.k)} (${fa(r.gap)} روز بعد)</span>${fmt(r.j)}</li>`).join('')+'</ul></div>').join('');
+showDet()}
+// پیل رنگی: جلسه = پر؛ مرور = حاشیه‌دار و کم‌رنگ
+const pill=(e)=>e.t==='s'?`<span class="pill s" style="background:${e.color}" title="${e.txt}">${e.txt}</span>`:
+ `<span class="pill r" style="border-color:${e.color};background:${e.color}22" title="${e.txt}">${e.txt}</span>`;
+function showDet(){if(selDay==null){$('det').textContent='روی یک روز بزنید تا همه رویدادهایش را ببینید.';return}
+const es=EV[selDay]||[];$('det').innerHTML=`<b>${fmt(selDay)}</b>`+(es.length?es.map(pill).join(''):'<div style="color:var(--mut)">رویدادی ندارد.</div>')}
+$('cal').onclick=$('cal').onkeydown=e=>{if(e.type==='keydown'&&e.key!=='Enter')return;const c=e.target.closest('.day[data-j]');if(!c)return;selDay=+c.dataset.j;draw()};
+const step=k=>{view.m+=k;if(view.m>12){view.m=1;view.y++}if(view.m<1){view.m=12;view.y--}draw()};
+$('nx').onclick=()=>step(1);$('pv').onclick=()=>step(-1);
+
+/* ===== نمودار فراموشی (SVG خالص؛ بدون Chart.js و CDN) ===== */
+(function(){
+const CD=[0,1,2,3,4,5,6,7,10,13,16,19,22,26,30],RD=[1,3,7,16,30],
+NR=[100,58,42,33,27,23,20,18,14,11,9,7,6,5,4],
+WR=[100,92,85,95,90,87,84,97,92,88,98,95,93,90,99];
+const W=800,H=320,pl=46,pr=14,pt=14,pb=40,n=CD.length;
+const X=i=>pl+i*(W-pl-pr)/(n-1),Y=v=>pt+(100-v)/100*(H-pt-pb);
+// منحنی هموار (Catmull-Rom به بزیه)
+const path=a=>{let d=`M${X(0)},${Y(a[0])}`;
+for(let i=0;i<n-1;i++){const p0=i?i-1:0,p3=i+2<n?i+2:n-1,t=.2;
+d+=` C${X(i)+(X(i+1)-X(p0))*t},${Y(a[i])+(Y(a[i+1])-Y(a[p0]))*t} ${X(i+1)-(X(p3)-X(i))*t},${Y(a[i+1])-(Y(a[p3])-Y(a[i]))*t} ${X(i+1)},${Y(a[i+1])}`}return d};
+const area=(a,c)=>`<path d="${path(a)} L${X(n-1)},${Y(0)} L${X(0)},${Y(0)}Z" fill="${c}" opacity=".1"/>`;
+let g='';
+[0,25,50,75,100].forEach(v=>g+=`<line class="g" x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${pl-8}" y="${Y(v)+4}" text-anchor="end">${fa(v)}٪</text>`);
+CD.forEach((d,i)=>g+=`<text x="${X(i)}" y="${H-pb+18}" text-anchor="middle">${fa(d)}</text>`);
+g+=`<text x="${(pl+W-pr)/2}" y="${H-4}" text-anchor="middle">روز</text>`;
+let pts='';
+RD.forEach(d=>{const i=CD.indexOf(d);pts+=`<circle cx="${X(i)}" cy="${Y(WR[i])}" r="15" fill="var(--grn)" opacity=".16"/><circle cx="${X(i)}" cy="${Y(WR[i])}" r="7" fill="var(--grn)" stroke="var(--card)" stroke-width="2"/>`});
+NR.forEach((v,i)=>pts+=`<circle cx="${X(i)}" cy="${Y(v)}" r="3" fill="var(--red)"/>`);
+const svg=$('fc');
+svg.innerHTML=g+area(NR,'var(--red)')+area(WR,'var(--grn)')+
+`<path class="ln" pathLength="1" d="${path(NR)}" stroke="var(--red)"/><path class="ln" pathLength="1" d="${path(WR)}" stroke="var(--grn)"/>`+pts+
+`<line id="vl" y1="${pt}" y2="${H-pb}" stroke="var(--mut)" stroke-dasharray="4" opacity="0"/>`;
+// راهنمای شناور (hover/لمس)
+const tip=$('tip'),vl=$('vl'),box=$('fcw');
+const hide=()=>{tip.style.display='none';vl.setAttribute('opacity',0)};
+svg.addEventListener('pointermove',e=>{const r=svg.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*W;
+let i=Math.round((x-pl)/((W-pl-pr)/(n-1)));i=Math.max(0,Math.min(n-1,i));
+vl.setAttribute('x1',X(i));vl.setAttribute('x2',X(i));vl.setAttribute('opacity',.6);
+tip.innerHTML=`<b>روز ${fa(CD[i])}</b><br><span style="color:var(--red)">●</span> بدون مرور: ${fa(NR[i])}٪<br><span style="color:var(--grn)">●</span> با مرور: ${fa(WR[i])}٪${RD.includes(CD[i])?' ✦ زمان مرور':''}`;
+tip.style.display='block';const px=X(i)/W*r.width,tw=tip.offsetWidth;
+tip.style.left=Math.max(4,Math.min(r.width-tw-4,px-tw/2))+'px'});
+svg.addEventListener('pointerleave',hide);
+})();
+</script>
+</body>
+</html>
