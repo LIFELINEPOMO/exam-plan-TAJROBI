@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LIFE LINE | بودجه‌بندی آزمون‌های دوازدهم ریاضی ۱۴۰۵-۱۴۰۶</title>
+<link rel="icon" type="image/webp" href="https://i.postimg.cc/kg3HykvF/LL.webp">
+<link rel="apple-touch-icon" href="https://i.postimg.cc/kg3HykvF/LL.webp">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f6fc;--card:#fff;--tx:#14201f;--mut:#5d6b69;--bd:#dcdcf0;--a:#5b4bdb;--a2:#0ea5c6;--soft:#ecebfc}
+:root[data-theme=q]{--bg:#fcf8f4;--a:#e8710a;--a2:#c2255c;--soft:#fdf0e3;--bd:#f0dfcf;--mut:#6d6258}
+@media(prefers-color-scheme:dark){:root{--bg:#10101c;--card:#1a1a2c;--tx:#ebebf7;--mut:#a6a6c4;--bd:#34345a;--soft:#25254a;--a:#8b7dff;--a2:#38c4e2}
+:root[data-theme=q]{--bg:#17110c;--card:#241a12;--bd:#4a3524;--soft:#33241a;--mut:#c4b09c;--a:#ff9340;--a2:#ff5c93}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Vazirmatn,Tahoma,sans-serif;line-height:1.7}
+header{background:linear-gradient(120deg,var(--a),var(--a2));color:#fff;padding:28px 16px 64px;text-align:center}
+.brand{display:inline-flex;align-items:center;gap:12px;margin-bottom:12px;background:#ffffff26;padding:6px 18px 6px 8px;border-radius:99px}
+.brand img{width:56px;height:56px;object-fit:contain;border-radius:50%;background:#fff}
+.brand span{font:800 22px Vazirmatn,Tahoma,sans-serif;letter-spacing:2px}
+header h1{margin:0 0 6px;font-size:clamp(20px,4vw,32px);font-weight:800}
+header p{margin:0;opacity:.9;font-size:14px}
+main{max-width:1100px;margin:-44px auto 40px;padding:0 14px}
+.tabs{display:flex;gap:8px;background:var(--card);padding:6px;border-radius:16px;border:1px solid var(--bd);box-shadow:0 6px 20px #0001}
+.tab{flex:1;border:0;padding:12px;border-radius:12px;font:700 16px inherit;font-family:inherit;background:transparent;color:var(--mut);cursor:pointer}
+.tab.on{color:#fff;background:linear-gradient(120deg,var(--a),var(--a2))}
+.tab:focus-visible,.chip:focus-visible,input:focus-visible{outline:3px solid var(--a2);outline-offset:2px}
+.bar{margin:14px 0;display:grid;gap:10px}
+.search{width:100%;padding:12px 16px;border-radius:12px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font:500 15px Vazirmatn,Tahoma}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.row b{font-size:13px;color:var(--mut);min-width:48px}
+.chip{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:99px;padding:5px 14px;font:500 13px Vazirmatn,Tahoma;cursor:pointer}
+.chip.on{background:var(--a);border-color:var(--a);color:#fff}
+.count{font-size:13px;color:var(--mut)}
+.sec{margin:26px 0 10px;font-size:19px;font-weight:800;color:var(--a);display:flex;align-items:center;gap:10px}
+.sec:after{content:"";flex:1;height:2px;background:var(--bd)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;overflow:hidden;border-top:4px solid var(--a)}
+.card:nth-child(even){border-top-color:var(--a2)}
+.ch{padding:14px 16px 8px;display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.date{font-size:20px;font-weight:800}
+.ttl{font-size:13px;color:var(--mut)}
+.badge{background:var(--soft);color:var(--a);border-radius:8px;padding:2px 10px;font-size:12px;font-weight:700;white-space:nowrap}
+.bk{padding:0 16px 8px;display:flex;flex-wrap:wrap;gap:5px}
+.bk span{font-size:11.5px;background:var(--soft);border-radius:6px;padding:1px 8px;color:var(--tx)}
+.ls{padding:4px 16px 14px;display:grid;gap:8px}
+.l{border:1px solid var(--bd);border-radius:10px;padding:8px 10px;font-size:13px}
+.l h4{margin:0 0 3px;font-size:13.5px}
+.l div{display:flex;gap:6px}
+.l i{font-style:normal;color:var(--mut);min-width:78px}
+.note{margin:0 16px 14px;padding:10px 12px;background:var(--soft);border-radius:10px;font-size:13.5px}
+.empty{text-align:center;padding:50px 10px;color:var(--mut)}
+footer{text-align:center;color:var(--mut);font-size:12px;padding-bottom:24px}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.l i{min-width:64px}}
+/* ===== صفحه آغازین نئونی (۳ ثانیه) ===== */
+#splash{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle at 50% 45%,#12102b,#05060f 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;cursor:pointer;animation:spOut .7s ease 3s forwards}
+#splash img{width:132px;height:132px;object-fit:contain;border-radius:50%;background:#fff;padding:4px;box-shadow:0 0 0 3px #2de2e6,0 0 28px #2de2e6,0 0 70px #7c5cff;animation:spPulse 1.6s ease-in-out infinite}
+#splash span{font:800 clamp(30px,8vw,52px) Vazirmatn,Tahoma,sans-serif;letter-spacing:.35em;padding-left:.35em;color:#fff;text-shadow:0 0 6px #fff,0 0 18px #2de2e6,0 0 38px #2de2e6,0 0 70px #7c5cff;animation:spIn 1s ease both}
+#splash small{color:#8f93b8;font:12px Vazirmatn,Tahoma,sans-serif;opacity:.8}
+@keyframes spPulse{50%{transform:scale(1.06);box-shadow:0 0 0 3px #ff4fd8,0 0 40px #ff4fd8,0 0 90px #2de2e6}}
+@keyframes spIn{from{opacity:0;transform:translateY(12px);filter:blur(6px)}}
+@keyframes spOut{to{opacity:0;visibility:hidden;pointer-events:none}}
+@media(prefers-reduced-motion:reduce){#splash img,#splash span{animation:none}}
+</style>
+</head>
+<body>
+<div id="splash" role="presentation"><img src="https://i.postimg.cc/kg3HykvF/LL.webp" alt=""><span dir="ltr">LIFE LINE</span><small>برای رد کردن کلیک کنید</small></div>
+
+<header><div class="brand"><img src="https://i.postimg.cc/kg3HykvF/LL.webp" alt="لوگوی LIFE LINE" width="56" height="56"><span dir="ltr">LIFE LINE</span></div><h1>بودجه‌بندی آزمون‌های دوازدهم ریاضی</h1><p>سال تحصیلی ۱۴۰۵-۱۴۰۶ · ماز و قلم‌چی (ریاضی و فیزیک)</p></header>
+<main>
+<div class="tabs" role="tablist"><button class="tab on" data-i="m" role="tab">آزمون‌های ماز (ریاضی)</button><button class="tab" data-i="q" role="tab">آزمون‌های قلم‌چی (ریاضی)</button></div>
+<div class="bar">
+<input class="search" id="q" type="search" placeholder="جستجوی تاریخ یا مبحث؛ مثلاً «۱۷ مهر»، «مشتق» یا «۹۴»">
+<div class="row"><b>فصل:</b><span id="fs"></span></div>
+<div class="row"><b>درس:</b><span id="ls"></span></div>
+<div class="count" id="cnt"></div>
+</div>
+<div id="out"></div>
+</main>
+<footer>صفحات بر اساس بودجه‌بندی اعلامی هر موسسه است؛ قبل از مطالعه با برنامه رسمی تطبیق دهید.</footer>
+<script>
+const L={h:'حسابان',g:'هندسه',d:'گسسته و آمار',f:'فیزیک',c:'شیمی'};
+const SN={p:'پاییز',w:'زمستان',s:'بهار و جمع‌بندی'};
+// ردیف درس: کلید|صفحات دوازدهم|صفحات پایه|(اختیاری) پسوند یا برچسب دلخواه با «=» ؛ "a-b" ← «ص a تا b»
+const B='(۱) / ریاضی (۱)',R='ص 14 تا 27 / ص 1 تا 6',T='n:آزمون جامع شبیه‌ساز کنکور سراسری مطابق با بودجه‌بندی و تعداد سوالات استاندارد کنکور.';
+const D={
+m:{p:[
+['17 مهر','مرحله ۱ · پایه دهم','h|1-12|ص 83 تا 117 / ص 37 تا 53|'+B,'g|9-17|9-27','d|1-6','f|1-10|1-22','c|1-14|1-23'],
+['1 آبان','مرحله ۲ · پایه دهم','h|1-22|ص 94 تا 117 / ص 37 تا 70|'+B,'g|9-23|29-37','d|1-12','f|1-15|23-52','c|1-24|19-46'],
+['15 آبان','مرحله ۳ · پایه دهم','h|23-34|ص 28 تا 46 / ص 91 تا 104|'+B,'g|23-26|38-49','d|13-22','f|13-28|53-82','c|24-30|47-69'],
+['29 آبان','مرحله ۴ · پایه دهم','h|35-44|ص 28 تا 46 / ص 91 تا 112|'+B,'g|27-31|53-73','d|22-25','f|15-44|83-126','c|24-44|70-98'],
+['13 آذر','مرحله ۵ · پایه دهم','h|1-58|'+R+'|'+B,'g|9-39|77-96','d|ص 1 تا 30 (کل فصل ۱)','f|1-53|127-149|=فیزیک (۱) (ترمودینامیک)','c|1-50|98-122'],
+['27 آذر','مرحله ۶ · پایه یازدهم','h|45-69|113-151|(۱)','g|33-46|9-20|(۲)','d|ص 26 تا 42 (گراف و مدل‌سازی)','f|39-60|1-32|(۲)','c|42-60|1-25|(۲)'],
+['25 دی','ایستگاه جمع‌بندی نیم‌سال اول','n:جمع‌بندی کامل نیم‌سال اول دوازدهم و پایه دهم مطابق تعداد سوالات کنکور.']],
+w:[
+['9 بهمن','مرحله ۷ · پایه یازدهم','h|71-83|14-36|(۱)','g|47-50|20-30|(۲)','d|43-48|ص 1 تا 34 / ص 1 تا 13','f|61-72|32-61|(۲)','c|67-77|25-50|(۲)'],
+['23 بهمن','مرحله ۸ · پایه یازدهم','h|84-97|7-13|(۱)','g|50-54|31-43|(۲)','d|48-54|ص 35 تا 68 / ص 141 تا 151','f|69-88|61-82|(۲)','c|67-86|51-77|(۲)'],
+['7 اسفند','مرحله ۹ · پایه یازدهم','h|97-110|47-68|=ریاضی (۱)','g|54-63|43-54|(۲)','d|55-61|ص 69 تا 95 / ص 118 تا 140','f|89-114|83-108|(۲)','c|77-99|77-98|(۲)'],
+['21 اسفند','آزمون دو حالته: پیشروی ۱۰۰٪ یا مرور ۵۰٪ نیم‌سال دوم','h|ص 111 تا 144 (یا مرور ص 71 تا 110)|71-90|(۱)','g|47-63|59-74|(۲)','d|ص 43 تا 61 / ص 97 تا 121 / ص 152 تا 170','f|ص 61 تا 114 / ص 103 تا 156|ص 32 تا 61 / ص 109 تا 130|(۲)','c|ص 67 تا 99 / ص 91 تا 123|99-123|(۲)']],
+s:[
+['6 فروردین','جمع‌بندی پایه','n:جمع‌بندی و مرور کامل پایه دهم و یازدهم (کل کتاب‌های پایه).'],
+['20 فروردین','مرور نیم‌سال اول','n:جمع‌بندی و مرور کامل نیم‌سال اول دوازدهم.'],
+['3 اردیبهشت','نیم‌سال دوم','n:پیشروی نیم‌سال دوم دوازدهم + مرور مباحث مهم پایه.'],
+['17 اردیبهشت','نیم‌سال دوم','n:تکمیل تسلط نیم‌سال دوم دوازدهم + مرور پایه.'],
+['24 اردیبهشت','جمع‌بندی نیم‌سال دوم','n:جمع‌بندی و مرور کامل نیم‌سال دوم دوازدهم.'],
+['21 خرداد','جامع کنکور ۱',T],['28 خرداد','جامع کنکور ۲',T],['4 تیر','جامع کنکور ۳',T]]},
+q:{p:[
+['3 و 10 مهر','آزمون‌های ورودی','n:آزمون‌های ورودی و سنجش اولیه.'],
+['17 مهر','مرحله ۱','h|1-10|1-36','g|9-19|9-27','d|1-10|1-20','f|1-10|1-22','c|1-16|1-23'],
+['1 آبان','مرحله ۲','h|1-10|ص 36 تا 68 / ص 37 تا 70|=ریاضی ۱ / حسابان ۱ (اختیاری)','g|19-23|29-44','d|1-10|21-47','f|10-13|23-52','c|16-36|24-46'],
+['15 آبان','مرحله ۳','h|13-24|69-108|=ریاضی ۱ (اختیاری)','g|22-31|45-64','d|9-22|48-68','f|13-21|53-82','c|1-24|47-69'],
+['29 آبان','مرحله ۴','h|1-24|109-132|=ریاضی ۱ (اختیاری)','g|9-26|65-73','d|1-22|69-94','f|21-28|83-126','c|1-42|70-98'],
+['13 آذر','مرحله ۵','h|24-44|133-170|=ریاضی ۱ (اختیاری)','g|9-21|77-96|=تجسم فضایی (اختیاری)','d|22-30|97-121|=آمار استنباطی (اختیاری)','f|1-28|127-149|=فیزیک ۱ - ترمودینامیک (اختیاری)','c|37-44|98-122'],
+['20 آذر','ایستگاه جمع‌بندی','n:ایستگاه جمع‌بندی و مرور مباحث پاییز.']],
+w:[
+['27 آذر','شروع نیم‌سال اول','n:شروع مباحث نیم‌سال اول + پایه یازدهم.'],
+['4 و 11 دی','شبیه امتحانات دی','n:آزمون‌های مشابه امتحانات دی‌ماه نیم‌سال اول.'],
+['25 دی','جامع نیم‌سال اول','n:آزمون جامع نیم‌سال اول دوازدهم.'],
+['2 بهمن','جامع پایه','n:آزمون جامع پایه (دهم و یازدهم).'],
+['9 بهمن تا 21 اسفند','پیشروی نیم‌سال دوم','h|مشتق (ص 71 تا 110)','g|آشنایی با مقاطع مخروطی و بردارها','d|گراف، مدل‌سازی و ترکیبیات','f|نوسان، موج و برهم‌کنش‌های موج','c|شیمی جلوه‌ای از هنر، زیبایی و ماندگاری + شیمی راهی به سوی آینده‌ای روشن‌تر','n:به همراه زوج‌کتاب‌های پایه یازدهم (حسابان ۱، هندسه ۲، آمار و احتمال، فیزیک ۲، شیمی ۲).']],
+s:[
+['7 فروردین','جامع پایه','n:آزمون جامع پایه (دهم و یازدهم).'],
+['20 فروردین','جامع نیم‌سال اول','n:آزمون جامع نیم‌سال اول دوازدهم.'],
+['3 و 17 اردیبهشت','پیشروی نیم‌سال دوم','n:پیشروی کاربردهای مشتق حسابان ۲، بردارها، ترکیبیات و فیزیک اتمی و هسته‌ای.'],
+['31 اردیبهشت','جامع نیم‌سال دوم','n:آزمون جامع نیم‌سال دوم دوازدهم.'],
+['7 و 14 خرداد','شبیه امتحانات نهایی','n:آزمون‌های شبیه‌ساز امتحانات نهایی.'],
+['21 و 28 خرداد و 4 تیر','۳ مرحله جامع کنکور','n:۳ مرحله آزمون جامع شبیه‌ساز کنکور سراسری رشته ریاضی.']]}};
+const fa=s=>String(s).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+const norm=s=>s.replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/ي/g,'ی').replace(/ك/g,'ک');
+const pg=t=>/^[\d\-]+$/.test(t)?'ص '+t.replace('-',' تا '):t;
+const MN={h:'۲',g:'۳',d:'',f:'۳',c:'۳'},NM={h:'حسابان',g:'هندسه',d:'گسسته',f:'فیزیک',c:'شیمی'};
+let inst='m',fs='',ls='';
+function lab(k,base,s){
+if(s&&s[0]=='=')return s.slice(1);
+if(inst=='m'){if(!base)return NM[k]+(MN[k]?' ('+MN[k]+')':'');return(k=='d'?'آمار و احتمال':NM[k]+' '+(s||'(۱)'))}
+if(!base)return NM[k]+(MN[k]?' '+MN[k]:'')+' (اجباری)';
+return(k=='d'?'آمار و احتمال':NM[k]+' ۱')+' (اختیاری)'}
+function parse(e,s){const rows=[],notes=[];e.slice(2).forEach(x=>x.startsWith('n:')?notes.push(x.slice(2)):rows.push(x.split('|')));
+return{d:e[0],t:e[1],s,rows,notes,txt:norm(e.join(' '))}}
+function chips(el,items,cur,set){el.innerHTML=items.map(([k,n])=>`<button class="chip${cur==k?' on':''}" data-k="${k}">${n}</button>`).join('');
+el.onclick=e=>{const k=e.target.dataset.k;if(k===undefined)return;set(k==cur?'':k);draw()}}
+function draw(){
+document.documentElement.dataset.theme=inst;
+chips(fs_,[['','همه'],...Object.entries(SN)],fs,v=>fs=v);
+chips(ls_,[['','همه'],...Object.entries(L)],ls,v=>ls=v);
+const q=norm(Q.value.trim());let all=[];
+for(const s in D[inst])D[inst][s].forEach(e=>all.push(parse(e,s)));
+all=all.filter(x=>(!fs||x.s==fs)&&(!ls||x.rows.some(r=>r[0]==ls))&&(!q||x.txt.includes(q)));
+cnt.textContent=fa(all.length)+' مرحله آزمون یافت شد';
+if(!all.length){out.innerHTML='<div class="empty">موردی پیدا نشد. فیلترها یا عبارت جستجو را تغییر دهید.</div>';return}
+let h='';
+for(const s in SN){const g=all.filter(x=>x.s==s);if(!g.length)continue;
+h+=`<div class="sec">${SN[s]}</div><div class="grid">`+g.map(x=>{
+const rows=ls?x.rows.filter(r=>r[0]==ls):x.rows;
+return`<article class="card"><div class="ch"><div><div class="date">${fa(x.d)}</div><div class="ttl">${x.t}</div></div><span class="badge">${inst=='m'?'ماز':'قلم‌چی'}</span></div>`+
+(x.rows.length?`<div class="bk">${x.rows.map(r=>`<span>${L[r[0]]}</span>`).join('')}</div>`:'')+
+(rows.length?`<div class="ls">${rows.map(r=>`<div class="l"><h4>${L[r[0]]}</h4><div><i>${lab(r[0])}:</i><span>${fa(pg(r[1]))}</span></div>${r[2]?`<div><i>${lab(r[0],1,r[3])}:</i><span>${fa(pg(r[2]))}</span></div>`:''}</div>`).join('')}</div>`:'')+
+x.notes.map(n=>`<div class="note">${fa(n)}</div>`).join('')+`</article>`}).join('')+'</div>'}
+out.innerHTML=h}
+const fs_=document.getElementById('fs'),ls_=document.getElementById('ls'),Q=document.getElementById('q'),cnt=document.getElementById('cnt'),out=document.getElementById('out');
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t==b));inst=b.dataset.i;draw()});
+Q.oninput=draw;draw();
+</script>
+<script>(function(){var sp=document.getElementById("splash");if(!sp)return;sp.onclick=function(){sp.remove()};setTimeout(function(){sp.remove()},3700)})();</script>
+</body>
+</html>
